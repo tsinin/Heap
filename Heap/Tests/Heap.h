@@ -54,15 +54,6 @@ public:
         return min_el;
     }
     void erase(Pointer* pointer) {
-        try {
-            if(pointer == nullptr)
-                throw std::invalid_argument("Element has been already deleted.");
-        }
-        catch(std::invalid_argument& error) {
-            std::cerr << error.what() << std::endl;
-            exit(3);
-        }
-
         int index = pointer->index;
         swap_elements(pointer->index, heap.size() - 1);
         delete back_ptr[heap.size() - 1];
@@ -72,15 +63,6 @@ public:
         sift_up(index);
     }
     void change(Pointer* pointer, Key newKey) {
-        try {
-            if(pointer == nullptr)
-                throw std::invalid_argument("Element does not exist.");
-        }
-        catch(std::invalid_argument& error) {
-            std::cerr << error.what() << std::endl;
-            exit(3);
-        }
-
         heap[pointer->index] = newKey;
         if(pointer->index > 0 && newKey < heap[(pointer->index - 1) / dimension])
             sift_up(pointer->index);

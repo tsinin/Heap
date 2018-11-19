@@ -73,18 +73,6 @@ TEST_F(testFixture, exceptionTest3) {
     ASSERT_EXIT(heap.optimize(1000, 10), ::testing::ExitedWithCode(2), "Heap is not empty.");
 }
 
-TEST_F(testFixture, exceptionTest4) {
-    Heap<int>::Pointer* p = heap.insert(1);
-    heap.extract_min();
-    ASSERT_EXIT(heap.erase(p), ::testing::ExitedWithCode(3), "Element has been already deleted.");
-}
-
-TEST_F(testFixture, exceptionTest5) {
-    Heap<int>::Pointer* p = heap.insert(1);
-    heap.extract_min();
-    ASSERT_EXIT(heap.change(p, 2), ::testing::ExitedWithCode(3), "Element does not exist.");
-}
-
 TEST_F(testFixture, smallTest1) {
     heap.insert(1), heap.insert(2), heap.insert(3);
     ASSERT_EQ(heap.extract_min(), 1);
@@ -261,7 +249,6 @@ TEST_F(testFixture, randomBigTest3) {
 TEST_F(testFixture, mediumCorrectnessTestForOptimize) {
     heap.optimize(39900, 100);
 
-
     for(int i = 0; i < 40000; ++i) {
         if(helpVector1[i] && !heap.is_empty()) {
             int minElementPtr = 0;
@@ -284,6 +271,7 @@ TEST_F(testFixture, mediumCorrectnessTestForOptimize) {
 
 TEST_F(testFixture, bigCorrectnessTestForOptimize) {
     heap.optimize(999900, 100);
+
     for(int i = 0; i < 1000000; ++i) {
         if(helpVector2[i] && !heap.is_empty()) {
             ASSERT_EQ(heap.extract_min(), *(testSet.begin()));
